@@ -14,4 +14,10 @@ class ListAllEmployee(ListView):
 class ListEmployeeByArea(ListView):
     """list all employee by area"""
     template_name = 'employee/list_employee_by_area.html'
-    queryset = Employee.objects.filter(department__name='TECNOLOGIA')
+    # queryset = Employee.objects.filter(department__name='TECNOLOGIA')
+    
+    def get_queryset(self):
+        area = self.kwargs['area_name']
+        employee_list = Employee.objects.filter(department__name=area)
+        return employee_list
+     

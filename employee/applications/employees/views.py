@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import (
+    ListView, DetailView)
 
 #models
 from .models import Employee
@@ -35,10 +36,20 @@ class ListEmployeeByKeyWord(ListView):
         return employee_list
 
 class ListSkillsEmployee(ListView):
+    """show employee's skills"""
     template_name = 'employee/skills_employee.html'
     context_object_name = 'skills'
     def get_queryset(self):
         employee = Employee.objects.get(id=1)
         skill = employee.skills.all()
         return skill
+
+class EmployeeDetailView(DetailView):
+    model = Employee
+    template_name = 'employee/employee-detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(EmployeeDetailView, self).get_context_data(**kwargs)
+        context['title'] = 'Employee of month'
+        return context
     

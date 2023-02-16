@@ -33,4 +33,12 @@ class ListEmployeeByKeyWord(ListView):
         key_word = self.request.GET.get("kword", '')
         employee_list = Employee.objects.filter(first_name=key_word)
         return employee_list
+
+class ListSkillsEmployee(ListView):
+    template_name = 'employee/skills_employee.html'
+    context_object_name = 'skills'
+    def get_queryset(self):
+        employee = Employee.objects.get(id=1)
+        skill = employee.skills.all()
+        return skill
     

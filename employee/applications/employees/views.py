@@ -1,8 +1,10 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views.generic import (
     ListView, 
     DetailView,
-    CreateView)
+    CreateView,
+    TemplateView)
 
 #models
 from .models import Employee
@@ -56,9 +58,13 @@ class EmployeeDetailView(DetailView):
         return context
 
 
+class SuccessView(TemplateView):
+    template_name = 'employee/success.html'
+
+
 class EmployeeCreateView(CreateView):
     model = Employee
     template_name = "employee/add_employee.html"
     # fields = ['first_name', 'last_name', 'job']
     fields = ('__all__')
-    success_url='.'
+    success_url= reverse_lazy('employee_app:correct')

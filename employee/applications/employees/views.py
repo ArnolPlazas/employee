@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import (
-    ListView, DetailView)
+    ListView, 
+    DetailView,
+    CreateView)
 
 #models
 from .models import Employee
@@ -52,4 +54,11 @@ class EmployeeDetailView(DetailView):
         context = super(EmployeeDetailView, self).get_context_data(**kwargs)
         context['title'] = 'Employee of month'
         return context
-    
+
+
+class EmployeeCreateView(CreateView):
+    model = Employee
+    template_name = "employee/add_employee.html"
+    # fields = ['first_name', 'last_name', 'job']
+    fields = ('__all__')
+    success_url='.'

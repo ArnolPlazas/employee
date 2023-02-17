@@ -7,4 +7,5 @@ urlpatterns = [
     path('search-employee', views.ListEmployeeByKeyWord.as_view()),
     path('list-skills-employee', views.ListSkillsEmployee.as_view()),
     path('detail-employee/<pk>', views.EmployeeDetailView.as_view()),
+    path('add-employee', views.EmployeeCreateView.as_view()),
 ]

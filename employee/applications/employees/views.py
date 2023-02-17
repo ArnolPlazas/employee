@@ -4,7 +4,8 @@ from django.views.generic import (
     ListView, 
     DetailView,
     CreateView,
-    TemplateView)
+    TemplateView,
+    UpdateView)
 
 #models
 from .models import Employee
@@ -74,3 +75,20 @@ class EmployeeCreateView(CreateView):
         employee.full_name = employee.first_name + ' ' + employee.last_name
         employee.save()
         return super(EmployeeCreateView, self).form_valid(form)
+    
+
+class EmployeeUpdateView(UpdateView):
+    model = Employee
+    template_name = "employee/update.html"
+    fields = ['first_name', 'last_name', 'job', 'department', 'skills']
+    success_url= reverse_lazy('employee_app:correct')
+
+    def post(self, request, *args, **kwargs):
+        print('*' * 20 + 'method post' + '*' * 20)
+        print(request.POST)
+        print(request.POST['last_name'])
+        return super().post(request, *args, **kwargs)
+    
+    def form_valid(self, form):
+        print('*' * 20 + 'method post' + '*' * 20)
+        return super(EmployeeUpdateView, self).form_valid(form)

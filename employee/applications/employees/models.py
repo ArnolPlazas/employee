@@ -24,6 +24,7 @@ class Employee(models.Model):
     )
     first_name = models.CharField('name', max_length=60)
     last_name = models.CharField('last name', max_length=60)
+    full_name = models.CharField('full name', max_length=120, blank=True)
     job = models.CharField('job', max_length=1, choices=JOB_CHOICES)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     # image = models.ImageField(, upload_to=None, height_field=None, width_field=None, max_length=None)

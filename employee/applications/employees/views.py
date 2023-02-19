@@ -5,7 +5,8 @@ from django.views.generic import (
     DetailView,
     CreateView,
     TemplateView,
-    UpdateView)
+    UpdateView,
+    DeleteView)
 
 #models
 from .models import Employee
@@ -92,3 +93,9 @@ class EmployeeUpdateView(UpdateView):
     def form_valid(self, form):
         print('*' * 20 + 'method post' + '*' * 20)
         return super(EmployeeUpdateView, self).form_valid(form)
+    
+
+class EmployeeDeleteView(DeleteView):
+    model = Employee
+    template_name = "employee/delete.html"
+    success_url= reverse_lazy('employee_app:correct')

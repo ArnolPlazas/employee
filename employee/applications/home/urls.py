@@ -5,4 +5,5 @@ urlpatterns = [
     path('home/', views.IndexView.as_view()),
     path('list/', views.TestListView.as_view()),
     path('model_list/', views.ModelListView.as_view()),
+    path('add/', views.TestCreateView.as_view(), name='test_add'),
 ]

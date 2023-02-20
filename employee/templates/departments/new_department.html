@@ -1,0 +1,19 @@
+<h1>Register new deparment</h1>
+
+<form method="POST"> {% csrf_token %}
+    <h3>Information from employee</h3>
+    <p>
+        {{ form.name }}
+    </p>
+    <p>
+        {{ form.last_name }}
+    </p>
+    <h3>Information from deparment</h3>
+    <p>
+        {{ form.department }}
+    </p>
+    <p>
+        {{ form.short_name }}
+    </p>
+    <button type="submit">Save</button>
+</form>

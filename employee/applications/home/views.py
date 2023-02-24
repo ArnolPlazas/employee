@@ -9,6 +9,9 @@ class IndexView(TemplateView):
     template_name = 'home/home.html'
 
 
+class ReviewFoundationView(TemplateView):
+    template_name = 'home/review_foundation.html'
+
 class TestListView(ListView):
     template_name = 'home/list.html'
     queryset = ['A', 'B', 'C']

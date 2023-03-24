@@ -1,8 +1,69 @@
-<h1>List of employee by area<h1>
+{% extends 'base.html' %}
 
-    <ul>
-        {% for e in object_list  %}
-            <li>{{ e }}</l1>        
-        {% endfor %}
-    
-    <ul>
+{% block title %}
+    employees by area
+{% endblock title %}
+
+{% block content %}
+
+    {% include 'includes/header.html' %}
+        <div class="grid-container">
+            <div class="grid-x">
+                <h1 class="cell">List of all employee</h1>
+                <form class="cell grid-x grid-margin-x" method="GET"> {% csrf_token %}
+                    <div class="cell large-7"> 
+                        <input type="text" id="kword" name="kword" placeholder="Search employee">
+                    </div>
+                    <div class="cell large-2"> 
+                        <button type="submit" class="submit success button">Search</button>
+                    </div>
+                </form>
+                <div class="cell"> 
+                    <table>
+                        <thead>
+                          <tr>
+                            <th width="200">ID</th>
+                            <th>NAME</th>
+                            <th width="150">LAST NAME</th>
+                            <th width="150">DEPARTMENT</th>
+                            <th width="150">ACTION</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            {% for e in employees  %}
+                            <tr>
+                                <td>{{ e.id }}</td>
+                                <td>{{ e.first_name }}</td>
+                                <td>{{ e.last_name }}</td>
+                                <td>{{ e.department }}</td>
+                                <td><a class="button warning" href="{% url 'employee_app:employee_detail' e.id %}">See</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                      </table>
+                </div>
+                <div class="cell">
+                    {% if is_paginated %}
+                    <nav aria-label="Pagination">
+                        <ul class="pagination">
+                           {% if page_obj.has_previous %}
+                                <li class="pagination-previous"><a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous page">Previous <span class="show-for-sr">page</span></a></li>
+                           {% endif %}
+                           {% for page in paginator.page_range %}
+                                {% ifequal page page_obj.number %}
+                                    <li class="current"><span class="show-for-sr">You're on page</span>{{ page }}</li>
+                                {% else %}
+                                    <li><a href="?page={{ page }}" aria-label="Page 2">{{ page }}</a></li>
+                                {% endifequal %}
+                           {% endfor %}
+                           {% if page_obj.has_next %}
+                            <li class="pagination-next"><a href="?page={{ page_obj.next_page_number }}" aria-label="Next page">Next <span class="show-for-sr">page</span></a></li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+{% endblock content %}

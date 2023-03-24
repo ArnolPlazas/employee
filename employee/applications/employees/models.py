@@ -27,7 +27,7 @@ class Employee(models.Model):
     full_name = models.CharField('full name', max_length=120, blank=True)
     job = models.CharField('job', max_length=1, choices=JOB_CHOICES)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
-    # image = models.ImageField(, upload_to=None, height_field=None, width_field=None, max_length=None)
+    image = models.ImageField(upload_to='employee', height_field=None, blank=True, null=True)
     skills = models.ManyToManyField(Skill)
     cv = RichTextField()
 

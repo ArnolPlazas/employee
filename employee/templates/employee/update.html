@@ -1,6 +1,44 @@
-<h1>Upadate employee</h1>
+{% extends 'base.html' %}
 
-<form method="POST"> {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Update</button>
-</form>
+{% block content %}
+    {% include 'includes/header.html' %}
+    <div class="grid-container">
+        <div class="grid-x">
+            <h1 class="cell">Upadate employee</h1>
+            <div class="cell"> 
+                <form class="grid-x grid-margin" method="POST"> {% csrf_token %}
+                    <div class="cell large-6">
+                        <label>Name: 
+                            {{ form.first_name }}
+                        </label>
+                    </div>
+                    <div class="cell large-6">
+                        <label>Last name: 
+                            {{ form.last_name }}
+                        </label>
+                    </div>
+                    <div class="cell large-6">
+                        <label>Job: 
+                            {{ form.job }}
+                        </label>
+                    </div>
+                    <div class="cell large-6">
+                        <label>Department: 
+                            {{ form.department }}
+                        </label>
+                    </div>
+                    <div class="cell large-6">
+                        <label>Skills: 
+                            {{ form.skills }}
+                        </label>
+                    </div>
+
+                    <div class="cell large-6">
+                        <button class="submit success button">Update</button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

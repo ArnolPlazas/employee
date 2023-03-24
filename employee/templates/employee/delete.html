@@ -1,6 +1,16 @@
-<h1>Delete employee</h1>
+{% extends 'base.html' %}
 
-<form method="POST"> {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Delete</button>
-</form>
+{% block content %}
+    {% include 'includes/header.html' %}
+    <div class="grid-container">
+        <h1 class="cell">Delete employee: {{ object.first_name }}</h1>
+        <div class="grid-x">
+            <form class="cell" method="POST"> {% csrf_token %}
+                <div class="callout alert">
+                    <h5>Do you want to dalete this employee?</h5>
+                    <button type="submit" class="alert button">Confirm</button>
+                  </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

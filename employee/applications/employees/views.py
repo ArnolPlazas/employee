@@ -11,19 +11,48 @@ from django.views.generic import (
 #models
 from .models import Employee
 
+# Forms
+from .forms import EmployeeForm
+
+
+class HomeEmployeesView(TemplateView):
+    """home employee view"""
+    template_name = "home_employee.html"
+
+
+
+
 
 class ListAllEmployee(ListView):
     """list all employee"""
     template_name = 'employee/list_all.html'
     paginate_by = 2
     ordering='first_name'
-    model = Employee
-    context_object_name = 'lista' # por defecto es object_list
+    context_object_name = 'employees' # por defecto es object_list
+    
+    
+    def get_queryset(self):
+        key_word = self.request.GET.get("kword", '')
+        employee_list = Employee.objects.filter(
+            first_name__icontains=key_word
+        )
+        return employee_list
+
+
+class ListAllEmployeeAdmin(ListView):
+    """list all employee"""
+    template_name = 'employee/list_employees.html'
+    paginate_by = 2
+    ordering='first_name'
+    context_object_name = 'employees'
+    model= Employee
+
 
 class ListEmployeeByArea(ListView):
     """list all employee by area"""
     template_name = 'employee/list_employee_by_area.html'
     # queryset = Employee.objects.filter(department__name='TECNOLOGIA')
+    context_object_name = 'employees'
     
     def get_queryset(self):
         area = self.kwargs['area_name']
@@ -67,9 +96,10 @@ class SuccessView(TemplateView):
 class EmployeeCreateView(CreateView):
     model = Employee
     template_name = "employee/add_employee.html"
-    fields = ['first_name', 'last_name', 'job', 'department', 'skills']
+    # fields = ['first_name', 'last_name', 'job', 'department', 'skills', 'image']
     # fields = ('__all__')
-    success_url= reverse_lazy('employee_app:correct')
+    form_class = EmployeeForm
+    success_url= reverse_lazy('employee_app:employees_admin')
     
     def form_valid(self, form):
         employee = form.save(commit=False) # crear una instancia y no guardarlo todavia
@@ -82,7 +112,7 @@ class EmployeeUpdateView(UpdateView):
     model = Employee
     template_name = "employee/update.html"
     fields = ['first_name', 'last_name', 'job', 'department', 'skills']
-    success_url= reverse_lazy('employee_app:correct')
+    success_url= reverse_lazy('employee_app:employees_admin')
 
     def post(self, request, *args, **kwargs):
         print('*' * 20 + 'method post' + '*' * 20)
@@ -98,4 +128,5 @@ class EmployeeUpdateView(UpdateView):
 class EmployeeDeleteView(DeleteView):
     model = Employee
     template_name = "employee/delete.html"
-    success_url= reverse_lazy('employee_app:correct')
+    success_url= reverse_lazy('employee_app:employees_admin')
+

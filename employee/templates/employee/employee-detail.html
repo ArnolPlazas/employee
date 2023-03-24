@@ -1,7 +1,34 @@
-<h1>Employee's details {{ title }}<h1>
+{% extends 'base.html' %}
+{% load static %}
 
-{{ object }}
+{% block title %}
+    {{ object.full_name }}
+{% endblock title %}
 
-{{ employee }}
-
-<p>{{ employee.job }}</p>
+{% block content %}
+{% include 'includes/header.html' %}
+<div class="grid-container">
+    <div class="grid-x grid-margin-x align-center">
+        <div class="cell large-4 card" style="width: 300px;">
+            <div class="card-divider">
+              {{ employee.get_job_display }}
+            </div>
+            {% if employee.image %}
+                <img src="{{ employee.image.url }}">
+            {% else %}
+                <img src="{% static 'img/img1.jpg' %}">
+            {% endif %}
+            <div class="card-section">
+              <h4>{{ employee.full_name }}</h4>
+              <p>{{ employee.department.short_name }}</p>
+              <p><span class="label">Skills</span></p>
+              <ul class="vertical menu"> 
+                {% for skill in employee.skills.all %}
+                    <li>{{ skill.skill }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+    </div>
+</div>
+{% endblock content %}

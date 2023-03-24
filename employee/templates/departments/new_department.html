@@ -1,19 +1,39 @@
-<h1>Register new deparment</h1>
 
-<form method="POST"> {% csrf_token %}
-    <h3>Information from employee</h3>
-    <p>
-        {{ form.name }}
-    </p>
-    <p>
-        {{ form.last_name }}
-    </p>
-    <h3>Information from deparment</h3>
-    <p>
-        {{ form.department }}
-    </p>
-    <p>
-        {{ form.short_name }}
-    </p>
-    <button type="submit">Save</button>
-</form>
+{% extends 'base.html' %}
+{% block content %}
+    {% include 'includes/header.html' %}
+    <div class="grid-container">
+        <div class="grid-x">
+            <h1 class="cell">Register new deparment</h1>
+            <form class="grid-x grid-margin callout" method="POST"> {% csrf_token %}
+                <h3 class="cell large-6">Information from employee</h3>
+                <div class="cell large-6">
+                    <label>Name: 
+                        {{ form.first_name }}
+                    </label>
+                </div>
+                <div class="cell large-6">
+                    <label>Last name: 
+                        {{ form.last_name }}
+                    </label>
+                </div>
+                <h3 class="cell large-6">Information from deparment</h3>
+                <div class="cell large-6">
+                    <label>Job: 
+                        {{ form.department }}
+                    </label>
+                </div>
+                <div class="cell large-6">
+                    <label>Department: 
+                        {{ form.short_name }}
+                    </label>
+                </div>
+                <div class="cell large-6">
+                    <button class="submit success button">Save</button>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+    
+{% endblock content%}

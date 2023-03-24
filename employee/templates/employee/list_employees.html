@@ -5,14 +5,6 @@
     <div class="grid-container">
         <div class="grid-x">
             <h1 class="cell">List of all employee</h1>
-            <form class="cell grid-x grid-margin-x" method="GET"> {% csrf_token %}
-                <div class="cell large-7"> 
-                    <input type="text" id="kword" name="kword" placeholder="Search employee">
-                </div>
-                <div class="cell large-2"> 
-                    <button type="submit" class="submit success button">Search</button>
-                </div>
-            </form>
             <div class="cell"> 
                 <table>
                     <thead>
@@ -31,7 +23,8 @@
                             <td>{{ e.first_name }}</td>
                             <td>{{ e.last_name }}</td>
                             <td>{{ e.department }}</td>
-                            <td><a class="button warning" href="{% url 'employee_app:employee_detail' e.id %}">See</a></td>
+                            <td><a class="button success" href="{% url 'employee_app:update' e.id%}">Edit</a></td>
+                            <td><a class="button alert" href="{% url 'employee_app:delete' e.id%}">Delete</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>
